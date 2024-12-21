@@ -1,3 +1,28 @@
+## 22-Dec-2024
+
+### [Sana](https://github.com/NVlabs/Sana)
+
+[Usage guide]()
+
+
+Activate virtual environment
+```
+cd Sana
+```
+
+- [x] Sana 1600M 512px MultiLingual [fp16]
+
+```
+python Sana_gradio_1.6B_512.py
+```
+
+- [x] Sana 1600M 1024px MultiLingual [fp16]
+
+```
+python Sana_gradio_1.6B_1024.py
+```
+
+
 
 ## 21-Dec-2024
 

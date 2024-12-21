@@ -11,6 +11,37 @@ from diffusers import SanaPipeline
 from datetime import datetime
 from huggingface_hub import hf_hub_download
 
+# Queue to hold batch processing tasks
+queue = []
+
+def add_to_queue(prompt, guidance_scale, num_inference_steps, seed):
+    task = {
+        "prompt": prompt,
+        "guidance_scale": guidance_scale,
+        "num_inference_steps": num_inference_steps,
+        "seed": seed
+    }
+    queue.append(task)
+    return f"Added to queue. Current queue size: {len(queue)}"
+
+def clear_queue():
+    queue.clear()
+    return "Queue cleared."
+
+def process_queue():
+    results = []
+    for task in queue:
+        result, _ = generate_image(
+            task["prompt"],
+            task["guidance_scale"],
+            task["num_inference_steps"],
+            task["seed"]
+        )
+        results.append(result)
+    queue.clear()
+    return f"Processed {len(results)} items in the queue."
+
+
 
 repo_id = "Efficient-Large-Model/Sana_1600M_512px_MultiLing_diffusers"
 base_path = repo_id
@@ -67,9 +98,6 @@ pipe.vae.to(torch.float16)
 pipe.text_encoder.to(torch.float16)
 pipe.enable_model_cpu_offload()
 
-# Ensure output directory exists
-os.makedirs("output", exist_ok=True)
-
 # Define inference function
 def generate_image(prompt, guidance_scale, num_inference_steps, seed):
     generator = torch.Generator(device="cuda").manual_seed(seed)
@@ -84,7 +112,8 @@ def generate_image(prompt, guidance_scale, num_inference_steps, seed):
 
     # Generate filename
     timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-    filename = f"output/{prompt[:10].replace(' ', '_')}_{timestamp}.png"
+    os.makedirs("output_sana_512", exist_ok=True)
+    filename = f"output_sana_512/{prompt[:10].replace(' ', '_')}_{timestamp}.png"
 
     # Save and return image
     image[0].save(filename)
@@ -96,59 +125,54 @@ def random_seed():
 
 with gr.Blocks() as demo:
     gr.Markdown("# Sana Image Generation 1.6B 512 x 512")
-    
-    with gr.Row():
-        prompt_input = gr.Textbox(
-            label="Prompt", 
-            placeholder="Enter your text prompt here", 
-            lines=3
-        )
-    
-    with gr.Row():
-        guidance_scale_slider = gr.Slider(
-            label="Guidance Scale", 
-            minimum=1.0, 
-            maximum=20.0, 
-            value=5.0, 
-            step=0.1
-        )
-        num_inference_steps_input = gr.Number(
-            label="Number of Inference Steps", 
-            value=20
-        )
-    
-    with gr.Row():
-        seed_input = gr.Number(
-            label="Seed", 
-            value=0
-        )
-        random_button = gr.Button("Randomize Seed")
 
-    with gr.Row():
-        height_display = gr.Textbox(
-            label="Height", 
-            value="512", 
-            interactive=False
-        )
-        width_display = gr.Textbox(
-            label="Width", 
-            value="512", 
-            interactive=False
-        )
+    with gr.Tabs():
+        # Generate Video Tab
+        with gr.Tab("Generate Video"):
+            gr.Markdown("## Generate Video")
+            with gr.Row():
+                prompt_input = gr.Textbox(label="Prompt", placeholder="Enter your text prompt here", lines=3, value="Self-portrait oil painting, a beautiful cyborg with golden hair, 8k")
+                guidance_scale_slider = gr.Slider(label="Guidance Scale", minimum=1.0, maximum=20.0, value=5.0, step=0.1)
+                num_inference_steps_input = gr.Number(label="Number of Inference Steps", value=20)
+                seed_input = gr.Number(label="Seed", value=0)
+                random_button = gr.Button("Randomize Seed")
 
-    with gr.Row():
-        generate_button = gr.Button("Generate Image")
-    
-    with gr.Row():
-        output_image = gr.Image(label="Generated Image", type="pil")
-        output_filename = gr.Textbox(label="Saved File Path", interactive=False)
-    
-    # Button functionality
-    random_button.click(fn=random_seed, outputs=[seed_input])
-    generate_button.click(
-        fn=generate_image, 
-        inputs=[prompt_input, guidance_scale_slider, num_inference_steps_input, seed_input],
-        outputs=[output_image, output_filename]
-    )
+            generate_button = gr.Button("Generate Video")
+            with gr.Row():
+                output_image = gr.Image(label="Generated Image", type="pil")
+                output_filename = gr.Textbox(label="Saved File Path", interactive=False)
+
+            random_button.click(fn=random_seed, outputs=[seed_input])
+            generate_button.click(
+                fn=generate_image,
+                inputs=[prompt_input, guidance_scale_slider, num_inference_steps_input, seed_input],
+                outputs=[output_image, output_filename]
+            )
+
+        # Batch Processing Tab
+        with gr.Tab("Batch Processing"):
+            gr.Markdown("## Batch Processing")
+            with gr.Row():
+                batch_prompt_input = gr.Textbox(label="Prompt", placeholder="Enter your text prompt here", lines=3, value="Self-portrait oil painting, a beautiful cyborg with golden hair, 8k")
+                batch_guidance_scale_slider = gr.Slider(label="Guidance Scale", minimum=1.0, maximum=20.0, value=5.0, step=0.1)
+                batch_num_inference_steps_input = gr.Number(label="Number of Inference Steps", value=20)
+                batch_seed_input = gr.Number(label="Seed", value=0)
+                batch_random_button = gr.Button("Randomize Seed")
+
+            with gr.Row():
+                add_to_queue_button = gr.Button("Add to Queue")
+                clear_queue_button = gr.Button("Clear Queue")
+
+            process_queue_button = gr.Button("Process Queue")
+            queue_status = gr.Textbox(label="Queue Status", interactive=False)
+
+            batch_random_button.click(fn=random_seed, outputs=[batch_seed_input])
+            add_to_queue_button.click(
+                fn=add_to_queue,
+                inputs=[batch_prompt_input, batch_guidance_scale_slider, batch_num_inference_steps_input, batch_seed_input],
+                outputs=[queue_status]
+            )
+            clear_queue_button.click(fn=clear_queue, outputs=[queue_status])
+            process_queue_button.click(fn=process_queue, outputs=[queue_status])
 
 demo.launch()
