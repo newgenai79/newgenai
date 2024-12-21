@@ -15,4 +15,4 @@ cd LTX
 python LTX09_gradio.py
 ```
 
-[Installation guide] (https://youtu.be/4Wo1Kgluzd4)
+[Installation and usage guide] (https://youtu.be/4Wo1Kgluzd4)
