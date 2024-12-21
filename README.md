@@ -1,6 +1,6 @@
-# 21-Dec-2024
+## 21-Dec-2024
 
-## [LTX-Video](https://github.com/Lightricks/LTX-Video)
+### [LTX-Video](https://github.com/Lightricks/LTX-Video)
 
 - [x] LTX-Video: ltx-video-2b-v0.9
 
