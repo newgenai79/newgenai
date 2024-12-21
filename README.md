@@ -1,4 +1,4 @@
-# [https://github.com/NVlabs/Sana](Sana)
+# [Sana](https://github.com/NVlabs/Sana)
 
 
 - [x] Sana 1600M 512px MultiLing [fp16]
