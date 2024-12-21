@@ -1,13 +1,13 @@
 # [Sana](https://github.com/NVlabs/Sana)
 
 
-- [x] Sana 1600M 512px MultiLing [fp16]
+- [x] Sana 1600M 512px MultiLingual [fp16]
 
 ```
 python Sana/Sana_gradio_1.6B_512.py
 ```
 
-- [x] Sana 1600M 1024px MultiLing [fp16]
+- [x] Sana 1600M 1024px MultiLingual [fp16]
 
 ```
 python Sana/Sana_gradio_1.6B_1024.py
@@ -19,7 +19,7 @@ python Sana/Sana_gradio_1.6B_1024.py
 python Sana/Sana_gradio_2k.py
 ```
 
-# [https://github.com/Lightricks/LTX-Video](LTX-Video)
+# [LTX-Video](https://github.com/Lightricks/LTX-Video)
 
 - [x] LTX-Video ltx-video-2b-v0.9
 
