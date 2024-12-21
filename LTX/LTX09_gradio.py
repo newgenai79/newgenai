@@ -99,7 +99,7 @@ repo_id = "Lightricks/LTX-Video"
 base_path = repo_id
 files_to_download = [
         "model_index.json",
-        "ltx-video-2b-v0.9.safetensors",
+        "ltx-video-2b-v0.9.1.safetensors",
         "text_encoder/config.json",
         "text_encoder/model-00001-of-00004.safetensors",
         "text_encoder/model-00002-of-00004.safetensors",
