@@ -1,5 +1,6 @@
 
 
+
 ## 21-Dec-2024
 
 ### [LTX-Video](https://github.com/Lightricks/LTX-Video)
@@ -12,5 +13,5 @@ cd LTX
 ```
 
 ```
-python LTX/LTX09_gradio.py
+python LTX09_gradio.py
 ```
