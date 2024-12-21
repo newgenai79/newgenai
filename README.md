@@ -1,6 +1,5 @@
 
 
-
 ## 21-Dec-2024
 
 ### [LTX-Video](https://github.com/Lightricks/LTX-Video)
@@ -15,3 +14,5 @@ cd LTX
 ```
 python LTX09_gradio.py
 ```
+
+[Installation guide] (https://youtu.be/4Wo1Kgluzd4)
