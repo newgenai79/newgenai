@@ -2,7 +2,7 @@
 
 ### [Sana](https://github.com/NVlabs/Sana)
 
-[Usage guide]()
+[Usage guide](https://youtu.be/GIwwE-lNhNw)
 
 
 Activate virtual environment
