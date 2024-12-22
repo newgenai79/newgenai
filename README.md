@@ -1,3 +1,22 @@
+## 23-Dec-2024
+
+### [CogView3 Plus](https://github.com/THUDM/CogView3)
+
+[Usage guide]()
+
+
+Activate virtual environment
+```
+cd CogView3
+```
+
+- [x] CogView3 Plus 3B (text to image)
+
+```
+python CogView3-Plus-3B_gradio.py
+```
+
+
 ## 22-Dec-2024
 
 ### [Sana](https://github.com/NVlabs/Sana)
