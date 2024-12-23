@@ -1,8 +1,32 @@
+## 24-Dec-2024
+
+### [Sana](https://github.com/NVlabs/Sana)
+
+[Usage guide]()
+
+
+Activate virtual environment
+```
+cd Sana
+```
+
+- [x] Sana 2K 1.6B MultiLingual [fp16]
+
+```
+python sana_2k_gradio.py
+```
+
+- [x] Sana 2K 1.6B MultiLingual (with PAG) [fp16]
+
+```
+python sana_2k_PAG_gradio.py
+```
+
 ## 23-Dec-2024
 
 ### [CogView3 Plus](https://github.com/THUDM/CogView3)
 
-[Usage guide]()
+[Usage guide](https://youtu.be/NexdRNqPM9k)
 
 
 Activate virtual environment
