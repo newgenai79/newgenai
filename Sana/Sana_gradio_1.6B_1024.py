@@ -127,9 +127,9 @@ with gr.Blocks() as demo:
     gr.Markdown("# Sana Image Generation 1.6B 1024 x 1024")
 
     with gr.Tabs():
-        # Generate Video Tab
-        with gr.Tab("Generate Video"):
-            gr.Markdown("## Generate Video")
+        # Generate image Tab
+        with gr.Tab("Generate image"):
+            gr.Markdown("## Generate image")
             with gr.Row():
                 prompt_input = gr.Textbox(label="Prompt", placeholder="Enter your text prompt here", lines=3, value="Self-portrait oil painting, a beautiful cyborg with golden hair, 8k")
                 guidance_scale_slider = gr.Slider(label="Guidance Scale", minimum=1.0, maximum=20.0, value=5.0, step=0.1)
@@ -137,7 +137,7 @@ with gr.Blocks() as demo:
                 seed_input = gr.Number(label="Seed", value=0)
                 random_button = gr.Button("Randomize Seed")
 
-            generate_button = gr.Button("Generate Video")
+            generate_button = gr.Button("Generate image")
             with gr.Row():
                 output_image = gr.Image(label="Generated Image", type="pil")
                 output_filename = gr.Textbox(label="Saved File Path", interactive=False)
