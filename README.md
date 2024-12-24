@@ -2,7 +2,7 @@
 
 ### [LTX-Video 0.9.1](https://github.com/Lightricks/LTX-Video)
 
-[Usage guide]()
+[Usage guide](https://youtu.be/L8hkDNPacFw)
 
 - [x] LTX-Video: ltx-video-2b-v0.9.1
 
