@@ -1,3 +1,21 @@
+## 25-Dec-2024
+
+### [LTX-Video 0.9.1](https://github.com/Lightricks/LTX-Video)
+
+[Usage guide]()
+
+- [x] LTX-Video: ltx-video-2b-v0.9.1
+
+Activate virtual environment
+```
+cd LTX
+```
+
+```
+python LTX091_gradio.py
+```
+
+
 ## 24-Dec-2024
 
 ### [Sana](https://github.com/NVlabs/Sana)
