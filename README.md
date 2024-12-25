@@ -1,3 +1,8 @@
+
+### [HunyuanVideo: A Systematic Framework For Large Video Generation Model](https://github.com/Tencent/HunyuanVideo/)
+Coming soon.....
+
+
 ## 25-Dec-2024
 
 ### [LTX-Video 0.9.1 Image to Video](https://github.com/Lightricks/LTX-Video)
