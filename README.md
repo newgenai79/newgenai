@@ -1,5 +1,23 @@
 ## 25-Dec-2024
 
+### [LTX-Video 0.9.1 Image to Video](https://github.com/Lightricks/LTX-Video)
+
+[Usage guide]()
+
+- [x] LTX-Video: ltx-video-2b-v0.9.1 Image to Video
+
+Activate virtual environment
+```
+cd LTX
+```
+
+```
+python LTX091_I2V_gradio.py
+```
+
+
+## 25-Dec-2024
+
 ### [LTX-Video 0.9.1](https://github.com/Lightricks/LTX-Video)
 
 [Usage guide](https://youtu.be/L8hkDNPacFw)
