@@ -146,9 +146,10 @@ except Exception as e:
 
 
 
-transformer_path = (
-    "https://huggingface.co/city96/HunyuanVideo-gguf/blob/main/hunyuan-video-t2v-720p-Q3_K_S.gguf"
-)
+# GGUF https://huggingface.co/city96/HunyuanVideo-gguf/tree/main
+# LORA TBI https://github.com/huggingface/diffusers/pull/10376
+
+transformer_path = f"https://huggingface.co/city96/HunyuanVideo-gguf/blob/main/{files_to_download_GGUF}"
 
 model_id = repo_id
 
