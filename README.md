@@ -1,7 +1,18 @@
 
 ### [HunyuanVideo: A Systematic Framework For Large Video Generation Model](https://github.com/Tencent/HunyuanVideo/)
-Coming soon.....
 
+[Usage guide]()
+
+- [x] HunyuanVideo Text to Video
+
+Activate virtual environment
+```
+cd HunyuanVideo
+```
+
+```
+python HunyuanVideo_gradio.py
+```
 
 ## 25-Dec-2024
 
