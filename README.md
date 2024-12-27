@@ -1,7 +1,10 @@
 
+
+## 27-Dec-2024
+
 ### [HunyuanVideo: A Systematic Framework For Large Video Generation Model](https://github.com/Tencent/HunyuanVideo/)
 
-[Usage guide]()
+[Usage guide](https://youtu.be/quOhEKnSTqg)
 
 - [x] HunyuanVideo Text to Video
 
