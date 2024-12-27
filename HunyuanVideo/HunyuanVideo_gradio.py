@@ -147,7 +147,7 @@ except Exception as e:
 
 
 transformer_path = (
-    "https://huggingface.co/city96/HunyuanVideo-gguf/blob/main/hunyuan-video-t2v-720p-Q3_K_M.gguf"
+    "https://huggingface.co/city96/HunyuanVideo-gguf/blob/main/hunyuan-video-t2v-720p-Q3_K_S.gguf"
 )
 
 model_id = repo_id
