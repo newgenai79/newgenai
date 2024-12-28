@@ -1,4 +1,15 @@
+## 28-Dec-2024
 
+Added Width/Height/negative prompt support in the following models
+
+- [x] Sana 2K 1.6B MultiLingual [fp16]
+- [x] Sana 2K 1.6B MultiLingual (with PAG) [fp16]
+
+use the folowing command to merge the updates
+
+```
+git pull
+```
 
 ## 27-Dec-2024
 

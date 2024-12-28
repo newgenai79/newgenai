@@ -14,9 +14,12 @@ from huggingface_hub import hf_hub_download
 # Queue to hold batch processing tasks
 queue = []
 
-def add_to_queue(prompt, guidance_scale, num_inference_steps, seed):
+def add_to_queue(prompt, negative_prompt, width, height, guidance_scale, num_inference_steps, seed):
     task = {
         "prompt": prompt,
+        "negative_prompt": negative_prompt,
+        "width": width,
+        "height": height,
         "guidance_scale": guidance_scale,
         "num_inference_steps": num_inference_steps,
         "seed": seed
@@ -33,6 +36,9 @@ def process_queue():
     for task in queue:
         result, _ = generate_image(
             task["prompt"],
+            task["negative_prompt"],
+            task["width"],
+            task["height"],
             task["guidance_scale"],
             task["num_inference_steps"],
             task["seed"]
@@ -100,12 +106,13 @@ pipe.text_encoder.to(torch.bfloat16)
 pipe.enable_model_cpu_offload()
 
 # Define inference function
-def generate_image(prompt, guidance_scale, num_inference_steps, seed):
+def generate_image(prompt, negative_prompt, width, height, guidance_scale, num_inference_steps, seed):
     generator = torch.Generator(device="cuda").manual_seed(seed)
     image = pipe(
         prompt=prompt,
-        height=2048,  # Fixed value
-        width=2048,   # Fixed value
+        negative_prompt=negative_prompt,
+        height=height,
+        width=width,
         guidance_scale=guidance_scale,
         pag_scale=2.0,
         num_inference_steps=num_inference_steps,
@@ -133,11 +140,27 @@ with gr.Blocks() as demo:
         with gr.Tab("Generate image"):
             gr.Markdown("## Generate image")
             with gr.Row():
-                prompt_input = gr.Textbox(label="Prompt", placeholder="Enter your text prompt here", lines=3, value="Self-portrait oil painting, a beautiful cyborg with golden hair, 8k")
-                guidance_scale_slider = gr.Slider(label="Guidance Scale", minimum=1.0, maximum=20.0, value=5.0, step=0.1)
-                num_inference_steps_input = gr.Number(label="Number of Inference Steps", value=20)
-                seed_input = gr.Number(label="Seed", value=0)
-                random_button = gr.Button("Randomize Seed")
+                with gr.Column():
+                    prompt_input = gr.Textbox(
+                        label="Prompt", 
+                        placeholder="Enter your text prompt here", 
+                        lines=3, 
+                        value="A grand library within a hollowed-out ancient tree, its shelves carved directly into the wood and filled with glowing, magical books."
+                    )
+                    negative_prompt_input = gr.Textbox(
+                        label="Negative Prompt",
+                        placeholder="Enter negative prompt here",
+                        lines=3,
+                        value=""
+                    )
+                with gr.Column():
+                    with gr.Row():
+                        width_input = gr.Number(label="Width", value=2048, minimum=512, maximum=2048, step=64)
+                        height_input = gr.Number(label="Height", value=2048, minimum=512, maximum=2048, step=64)
+                    guidance_scale_slider = gr.Slider(label="Guidance Scale", minimum=1.0, maximum=20.0, value=5.0, step=0.1)
+                    num_inference_steps_input = gr.Number(label="Number of Inference Steps", value=20)
+                    seed_input = gr.Number(label="Seed", value=0)
+                    random_button = gr.Button("Randomize Seed")
 
             generate_button = gr.Button("Generate image")
             with gr.Row():
@@ -147,7 +170,15 @@ with gr.Blocks() as demo:
             random_button.click(fn=random_seed, outputs=[seed_input])
             generate_button.click(
                 fn=generate_image,
-                inputs=[prompt_input, guidance_scale_slider, num_inference_steps_input, seed_input],
+                inputs=[
+                    prompt_input,
+                    negative_prompt_input,
+                    width_input,
+                    height_input,
+                    guidance_scale_slider,
+                    num_inference_steps_input,
+                    seed_input
+                ],
                 outputs=[output_image, output_filename]
             )
 
@@ -155,11 +186,27 @@ with gr.Blocks() as demo:
         with gr.Tab("Batch Processing"):
             gr.Markdown("## Batch Processing")
             with gr.Row():
-                batch_prompt_input = gr.Textbox(label="Prompt", placeholder="Enter your text prompt here", lines=3, value="Self-portrait oil painting, a beautiful cyborg with golden hair, 8k")
-                batch_guidance_scale_slider = gr.Slider(label="Guidance Scale", minimum=1.0, maximum=20.0, value=5.0, step=0.1)
-                batch_num_inference_steps_input = gr.Number(label="Number of Inference Steps", value=20)
-                batch_seed_input = gr.Number(label="Seed", value=0)
-                batch_random_button = gr.Button("Randomize Seed")
+                with gr.Column():
+                    batch_prompt_input = gr.Textbox(
+                        label="Prompt",
+                        placeholder="Enter your text prompt here",
+                        lines=3,
+                        value="Self-portrait oil painting, a beautiful cyborg with golden hair, 8k"
+                    )
+                    batch_negative_prompt_input = gr.Textbox(
+                        label="Negative Prompt",
+                        placeholder="Enter negative prompt here",
+                        lines=3,
+                        value=""
+                    )
+                with gr.Column():
+                    with gr.Row():
+                        batch_width_input = gr.Number(label="Width", value=2048, minimum=512, maximum=2048, step=64)
+                        batch_height_input = gr.Number(label="Height", value=2048, minimum=512, maximum=2048, step=64)
+                    batch_guidance_scale_slider = gr.Slider(label="Guidance Scale", minimum=1.0, maximum=20.0, value=5.0, step=0.1)
+                    batch_num_inference_steps_input = gr.Number(label="Number of Inference Steps", value=20)
+                    batch_seed_input = gr.Number(label="Seed", value=0)
+                    batch_random_button = gr.Button("Randomize Seed")
 
             with gr.Row():
                 add_to_queue_button = gr.Button("Add to Queue")
@@ -171,7 +218,15 @@ with gr.Blocks() as demo:
             batch_random_button.click(fn=random_seed, outputs=[batch_seed_input])
             add_to_queue_button.click(
                 fn=add_to_queue,
-                inputs=[batch_prompt_input, batch_guidance_scale_slider, batch_num_inference_steps_input, batch_seed_input],
+                inputs=[
+                    batch_prompt_input,
+                    batch_negative_prompt_input,
+                    batch_width_input,
+                    batch_height_input,
+                    batch_guidance_scale_slider,
+                    batch_num_inference_steps_input,
+                    batch_seed_input
+                ],
                 outputs=[queue_status]
             )
             clear_queue_button.click(fn=clear_queue, outputs=[queue_status])
