@@ -1,3 +1,8 @@
+# Coming soon
+
+CogVideoX for low VRAM
+
+
 ## 28-Dec-2024
 
 Added Width/Height/negative prompt support in the following models
@@ -5,7 +10,7 @@ Added Width/Height/negative prompt support in the following models
 - [x] Sana 2K 1.6B MultiLingual [fp16]
 - [x] Sana 2K 1.6B MultiLingual (with PAG) [fp16]
 
-use the folowing command to merge the updates
+use the folowing command to merge the updates locally
 
 ```
 git pull
