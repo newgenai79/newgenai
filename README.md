@@ -1,7 +1,46 @@
-# Coming soon
+## 31-Dec-2024
 
-CogVideoX for low VRAM
+### [CogVideoX: Text/Image/Video-to-Video Diffusion Models with An Expert Transformer](https://github.com/THUDM/CogVideo)
 
+[Usage guide]()
+
+use the folowing command to merge the updates locally
+
+```
+git pull
+```
+
+```
+venv\scripts\activate
+```
+
+```
+cd CogVideoX
+```
+
+- [x] CogVideoX_v1.5_5b Text to Video
+
+```
+python CogVideoX_v1.5_5b_t2v_gradio.py
+```
+
+- [x] CogVideoX_v1.5_5b Image to Video
+
+```
+python CogVideoX_v1.5_5b_i2v_gradio.py
+```
+
+- [x] CogVideoX_v1.5_5b Video to Video
+
+```
+python CogVideoX_v1.5_5b_v2v_gradio.py
+```
+
+- [x] CogVideoX-Fun-V1.1-5b - Pose
+
+```
+python CogVideoX-Fun-V1.1-5b-Pose_gradio.py
+```
 
 ## 28-Dec-2024
 
